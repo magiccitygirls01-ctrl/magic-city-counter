@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Magic City - Setup Guide</title>
+<title>Magic City - Launch Portal</title>
 <style>
     body {
         background-color: #4b0000;
@@ -16,47 +16,41 @@
     h1 {
         font-size: 3em;
         text-shadow: 0 0 10px white, 0 0 20px white;
-        margin-top: 20px;
+        margin-top: 30px;
     }
 
     .logo {
         margin-top: 20px;
     }
 
-    .guide-box {
-        border: 2px solid white;
-        border-radius: 10px;
-        padding: 20px;
-        margin: 20px auto;
-        width: 90%;
-        max-width: 600px;
-        box-shadow: 0 0 20px white;
-        background-color: rgba(0,0,0,0.3);
-        text-align: left;
+    .button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 50px;
     }
 
-    h2 {
-        text-align: center;
-        text-shadow: 0 0 10px white;
-    }
-
-    ol {
-        margin-left: 20px;
-        line-height: 1.8;
-    }
-
-    a {
-        color: #ffdc00;
-        text-decoration: none;
+    .launch-btn, .guide-btn {
+        background-color: #ffdc00;
+        color: #001f3f;
+        border: none;
+        padding: 20px 50px;
+        font-size: 1.5em;
+        margin: 20px;
+        border-radius: 15px;
+        cursor: pointer;
         font-weight: bold;
+        box-shadow: 0 0 20px #ffdc00;
+        transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    a:hover {
-        text-decoration: underline;
+    .launch-btn:hover, .guide-btn:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 30px #ffdc00;
     }
 
     footer {
-        margin-top: 40px;
+        margin-top: 60px;
         padding: 10px;
         font-size: 1.2em;
         text-shadow: 0 0 10px white;
@@ -75,36 +69,16 @@
         <img src="https://magic-city.vip/assets/redwmc-w2mMHiO9.gif" alt="Magic City Logo" style="width:150px;">
     </div>
 
-    <h1>Magic City Setup Guide</h1>
+    <h1>Magic City Admin Portal</h1>
 
-    <div class="guide-box">
-        <h2>Step 1: Install AutoHotkey</h2>
-        <p>AutoHotkey is required to run the ticket counter script. Download and install it from the official site:</p>
-        <p><a href="https://www.autohotkey.com/" target="_blank">https://www.autohotkey.com/</a></p>
-    </div>
+    <div class="button-container">
+        <button class="launch-btn" onclick="window.location.href='counter.html';">
+            Open Ticket Counter
+        </button>
 
-    <div class="guide-box">
-        <h2>Step 2: Download the Ticket Script</h2>
-        <p>Get the Magic City ticket counter script <code>ticket-counter.ahk</code> from the repository or your admin source.</p>
-    </div>
-
-    <div class="guide-box">
-        <h2>Step 3: Run the Script</h2>
-        <ol>
-            <li>Right-click the <code>ticket-counter.ahk</code> file.</li>
-            <li>Select <strong>Run Script</strong>.</li>
-            <li>You should now see the counter start updating when tickets are accepted in-game.</li>
-        </ol>
-    </div>
-
-    <div class="guide-box">
-        <h2>Step 4: Keep the Script Running</h2>
-        <p>Minimize AutoHotkey; do not close it. The counter will only update while the script is active.</p>
-    </div>
-
-    <div class="guide-box">
-        <h2>Need Help?</h2>
-        <p>Contact your Magic City admin or check the repo for troubleshooting tips.</p>
+        <button class="guide-btn" onclick="window.location.href='setup-guide.html';">
+            Setup Guide
+        </button>
     </div>
 
     <footer>
