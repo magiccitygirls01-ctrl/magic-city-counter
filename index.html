@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Magic City</title>
+<title>Magic City - Setup Guide</title>
 <style>
     body {
         background-color: #4b0000;
@@ -19,52 +19,40 @@
         margin-top: 20px;
     }
 
-    .logo img {
+    .logo {
         margin-top: 20px;
-        width: 150px; /* smaller logo */
-        height: auto;
     }
 
-    .counter-box {
+    .guide-box {
         border: 2px solid white;
         border-radius: 10px;
         padding: 20px;
         margin: 20px auto;
-        width: 300px;
+        width: 90%;
+        max-width: 600px;
         box-shadow: 0 0 20px white;
         background-color: rgba(0,0,0,0.3);
+        text-align: left;
     }
 
-    .counter-label {
-        font-size: 1.5em;
-        margin-bottom: 10px;
+    h2 {
+        text-align: center;
         text-shadow: 0 0 10px white;
     }
 
-    .counter-value {
-        font-size: 2.5em;
+    ol {
+        margin-left: 20px;
+        line-height: 1.8;
+    }
+
+    a {
+        color: #ffdc00;
+        text-decoration: none;
         font-weight: bold;
-        text-shadow: 0 0 20px white, 0 0 30px white;
     }
 
-    .reset-button {
-        background-color: transparent;
-        color: white;
-        border: 2px solid white;
-        border-radius: 5px;
-        padding: 10px 20px;
-        font-size: 1.2em;
-        cursor: pointer;
-        text-shadow: 0 0 5px white;
-        box-shadow: 0 0 10px white;
-        transition: all 0.2s ease-in-out;
-        margin-top: 10px;
-    }
-
-    .reset-button:hover {
-        background-color: white;
-        color: #4b0000;
-        text-shadow: none;
+    a:hover {
+        text-decoration: underline;
     }
 
     footer {
@@ -84,64 +72,45 @@
 <body>
 
     <div class="logo">
-        <img src="https://magic-city.vip/assets/redwmc-w2mMHiO9.gif" alt="Magic City Logo">
+        <img src="https://magic-city.vip/assets/redwmc-w2mMHiO9.gif" alt="Magic City Logo" style="width:150px;">
     </div>
 
-    <h1>Magic City</h1>
+    <h1>Magic City Setup Guide</h1>
 
-    <div class="counter-box">
-        <div class="counter-label">Tickets This Session</div>
-        <div class="counter-value" id="sessionCounter">0</div>
+    <div class="guide-box">
+        <h2>Step 1: Install AutoHotkey</h2>
+        <p>AutoHotkey is required to run the ticket counter script. Download and install it from the official site:</p>
+        <p><a href="https://www.autohotkey.com/" target="_blank">https://www.autohotkey.com/</a></p>
     </div>
 
-    <div class="counter-box">
-        <div class="counter-label">All-Time Tickets</div>
-        <div class="counter-value" id="allTimeCounter">0</div>
+    <div class="guide-box">
+        <h2>Step 2: Download the Ticket Script</h2>
+        <p>Get the Magic City ticket counter script <code>ticket-counter.ahk</code> from the repository or your admin source.</p>
     </div>
 
-    <button class="reset-button" onclick="resetCounters()">Reset Counters</button>
+    <div class="guide-box">
+        <h2>Step 3: Run the Script</h2>
+        <ol>
+            <li>Right-click the <code>ticket-counter.ahk</code> file.</li>
+            <li>Select <strong>Run Script</strong>.</li>
+            <li>You should now see the counter start updating when tickets are accepted in-game.</li>
+        </ol>
+    </div>
+
+    <div class="guide-box">
+        <h2>Step 4: Keep the Script Running</h2>
+        <p>Minimize AutoHotkey; do not close it. The counter will only update while the script is active.</p>
+    </div>
+
+    <div class="guide-box">
+        <h2>Need Help?</h2>
+        <p>Contact your Magic City admin or check the repo for troubleshooting tips.</p>
+    </div>
 
     <footer>
         Made by the one and only Maklooba on top in Magic City
         <div class="small-footer">msmar stinks</div>
     </footer>
-
-<script>
-let session = parseInt(localStorage.getItem('sessionCounter')) || 0;
-let allTime = parseInt(localStorage.getItem('allTimeCounter')) || 0;
-
-const sessionCounter = document.getElementById('sessionCounter');
-const allTimeCounter = document.getElementById('allTimeCounter');
-
-function updateDisplay() {
-    sessionCounter.textContent = session;
-    allTimeCounter.textContent = allTime;
-}
-
-// Increment counters every time you want
-function incrementCounter() {
-    session++;
-    allTime++;
-    localStorage.setItem('sessionCounter', session);
-    localStorage.setItem('allTimeCounter', allTime);
-    updateDisplay();
-}
-
-// Manual reset button
-function resetCounters() {
-    session = 0;
-    allTime = 0;
-    localStorage.setItem('sessionCounter', session);
-    localStorage.setItem('allTimeCounter', allTime);
-    updateDisplay();
-}
-
-// Initialize display
-updateDisplay();
-
-// Example: automatic increment for demo (remove if not needed)
-// setInterval(incrementCounter, 1000);
-</script>
 
 </body>
 </html>
