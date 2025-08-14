@@ -21,7 +21,7 @@
 
     .logo img {
         margin-top: 20px;
-        width: 150px; /* smaller logo */
+        width: 150px;
     }
 
     .counter-box {
@@ -66,19 +66,6 @@
         text-shadow: none;
     }
 
-    footer {
-        margin-top: 40px;
-        padding: 10px;
-        font-size: 1.2em;
-        text-shadow: 0 0 10px white;
-    }
-
-    .small-footer {
-        font-size: 0.9em;
-        margin-top: 5px;
-        text-shadow: 0 0 5px white;
-    }
-
     a.download-button {
         display: inline-block;
         margin: 10px auto;
@@ -99,6 +86,18 @@
         text-shadow: none;
     }
 
+    footer {
+        margin-top: 40px;
+        padding: 10px;
+        font-size: 1.2em;
+        text-shadow: 0 0 10px white;
+    }
+
+    .small-footer {
+        font-size: 0.9em;
+        margin-top: 5px;
+        text-shadow: 0 0 5px white;
+    }
 </style>
 </head>
 <body>
@@ -121,7 +120,8 @@
 
     <button class="reset-button" onclick="resetCounters()">Reset Counters</button>
     
-    <a class="download-button" href="ticket-counter.ahk" download>Download AHK Script</a>
+    <!-- Link to setup guide page instead of direct download -->
+    <a class="download-button" href="setup-guide.html">Download & Setup AHK Script</a>
 
     <footer>
         Made by the one and only Maklooba on top in Magic City
@@ -154,7 +154,6 @@ async function resetCounters() {
     try {
         await fetch('/reset', { method: 'POST' });
 
-        // Refetch from server after reset to sync values
         const response = await fetch('/count');
         const text = await response.text();
         const allTime = parseInt(text) || 0;
@@ -167,7 +166,6 @@ async function resetCounters() {
     }
 }
 
-// Update every 200ms
 setInterval(updateCounters, 200);
 </script>
 
