@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Magic City - Launch Portal</title>
+<title>Magic City Counter</title>
 <style>
     body {
         background-color: #4b0000;
@@ -16,41 +16,58 @@
     h1 {
         font-size: 3em;
         text-shadow: 0 0 10px white, 0 0 20px white;
-        margin-top: 30px;
-    }
-
-    .logo {
         margin-top: 20px;
     }
 
-    .button-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 50px;
+    .logo img {
+        margin-top: 20px;
+        width: 150px; /* smaller logo */
     }
 
-    .launch-btn, .guide-btn {
-        background-color: #ffdc00;
-        color: #001f3f;
-        border: none;
-        padding: 20px 50px;
+    .counter-box {
+        border: 2px solid white;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 20px auto;
+        width: 300px;
+        box-shadow: 0 0 20px white;
+        background-color: rgba(0,0,0,0.3);
+    }
+
+    .counter-label {
         font-size: 1.5em;
-        margin: 20px;
-        border-radius: 15px;
-        cursor: pointer;
-        font-weight: bold;
-        box-shadow: 0 0 20px #ffdc00;
-        transition: transform 0.2s, box-shadow 0.2s;
+        margin-bottom: 10px;
+        text-shadow: 0 0 10px white;
     }
 
-    .launch-btn:hover, .guide-btn:hover {
-        transform: scale(1.1);
-        box-shadow: 0 0 30px #ffdc00;
+    .counter-value {
+        font-size: 2.5em;
+        font-weight: bold;
+        text-shadow: 0 0 20px white, 0 0 30px white;
+    }
+
+    .reset-button {
+        background-color: transparent;
+        color: white;
+        border: 2px solid white;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 1.2em;
+        cursor: pointer;
+        text-shadow: 0 0 5px white;
+        box-shadow: 0 0 10px white;
+        transition: all 0.2s ease-in-out;
+        margin-bottom: 20px;
+    }
+
+    .reset-button:hover {
+        background-color: white;
+        color: #4b0000;
+        text-shadow: none;
     }
 
     footer {
-        margin-top: 60px;
+        margin-top: 40px;
         padding: 10px;
         font-size: 1.2em;
         text-shadow: 0 0 10px white;
@@ -61,30 +78,98 @@
         margin-top: 5px;
         text-shadow: 0 0 5px white;
     }
+
+    a.download-button {
+        display: inline-block;
+        margin: 10px auto;
+        padding: 10px 20px;
+        font-size: 1.1em;
+        border: 2px solid white;
+        border-radius: 5px;
+        text-decoration: none;
+        color: white;
+        text-shadow: 0 0 5px white;
+        box-shadow: 0 0 10px white;
+        transition: all 0.2s ease-in-out;
+    }
+
+    a.download-button:hover {
+        background-color: white;
+        color: #4b0000;
+        text-shadow: none;
+    }
+
 </style>
 </head>
 <body>
 
     <div class="logo">
-        <img src="https://magic-city.vip/assets/redwmc-w2mMHiO9.gif" alt="Magic City Logo" style="width:150px;">
+        <img src="https://magic-city.vip/assets/redwmc-w2mMHiO9.gif" alt="Magic City Logo">
     </div>
 
-    <h1>Magic City Admin Portal</h1>
+    <h1>Magic City Counter</h1>
 
-    <div class="button-container">
-        <button class="launch-btn" onclick="window.location.href='counter.html';">
-            Open Ticket Counter
-        </button>
-
-        <button class="guide-btn" onclick="window.location.href='setup-guide.html';">
-            Setup Guide
-        </button>
+    <div class="counter-box">
+        <div class="counter-label">Tickets This Session</div>
+        <div class="counter-value" id="sessionCounter">0</div>
     </div>
+
+    <div class="counter-box">
+        <div class="counter-label">All-Time Tickets</div>
+        <div class="counter-value" id="allTimeCounter">0</div>
+    </div>
+
+    <button class="reset-button" onclick="resetCounters()">Reset Counters</button>
+    
+    <a class="download-button" href="ticket-counter.ahk" download>Download AHK Script</a>
 
     <footer>
         Made by the one and only Maklooba on top in Magic City
         <div class="small-footer">msmar stinks</div>
     </footer>
+
+<script>
+let startingAllTime = null;
+const sessionCounter = document.getElementById('sessionCounter');
+const allTimeCounter = document.getElementById('allTimeCounter');
+
+async function updateCounters() {
+    try {
+        const response = await fetch('/count');
+        const text = await response.text();
+        const allTime = parseInt(text) || 0;
+
+        if (startingAllTime === null) {
+            startingAllTime = allTime;
+        }
+
+        allTimeCounter.textContent = allTime;
+        sessionCounter.textContent = allTime - startingAllTime;
+    } catch(err) {
+        console.error("Error reading counter:", err);
+    }
+}
+
+async function resetCounters() {
+    try {
+        await fetch('/reset', { method: 'POST' });
+
+        // Refetch from server after reset to sync values
+        const response = await fetch('/count');
+        const text = await response.text();
+        const allTime = parseInt(text) || 0;
+
+        startingAllTime = allTime; 
+        allTimeCounter.textContent = allTime;
+        sessionCounter.textContent = 0;
+    } catch (err) {
+        console.error("Error resetting counters:", err);
+    }
+}
+
+// Update every 200ms
+setInterval(updateCounters, 200);
+</script>
 
 </body>
 </html>
